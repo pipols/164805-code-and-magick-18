@@ -54,13 +54,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillStyle = COLOR_FONT;
     ctx.fillText(name, CLOUD.X + COLUMN.GAP + ((COLUMN.GAP + COLUMN.WIDTH) * i), CLOUD.HEIGHT - FONT_LINE_HEIGHT);
 
-    // name === 'Вы' ? ctx.fillStyle = COLUMN.COLOR_PLAYER : ctx.fillStyle = COLUMN.colorAnotherPlayer(); // test error:  Expected an assignment or function call and instead saw an expression  no-unused-expressions https://eslint.org/docs/rules/no-unused-expressions
-
-    if (name === 'Вы') {
-      ctx.fillStyle = COLUMN.COLOR_PLAYER;
-    } else {
-      ctx.fillStyle = COLUMN.colorAnotherPlayer();
-    }
+    ctx.fillStyle = name === 'Вы' ? COLUMN.COLOR_PLAYER : COLUMN.colorAnotherPlayer();
 
     ctx.fillRect(
         CLOUD.X + COLUMN.GAP + ((COLUMN.GAP + COLUMN.WIDTH) * i),
