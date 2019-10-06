@@ -12,7 +12,7 @@ var USER_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'В�
 var USER_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var COLOR_OF_EYES_USERS = ['black', 'red', 'blue', 'yellow', 'green'];
 var AMOUNT_WIZARDS = 4;
-var KEYCODE = {
+var KeyCode = {
   ESC: 27,
   ENTER: 13
 };
@@ -66,29 +66,29 @@ setupClose.tabIndex = 0;
 
 var openSetup = function () {
   setup.classList.remove('hidden');
-  setupClose.addEventListener('keydown', setupCloseEnterHandler);
-  document.addEventListener('keydown', setupCloseEscHandler);
+  setupClose.addEventListener('keydown', setupCloseKeydownHandler);
+  document.addEventListener('keydown', documentKeydownHandler);
 };
 
 var closeSetup = function () {
   setup.classList.add('hidden');
-  document.removeEventListener('keydown', setupCloseEscHandler);
+  document.removeEventListener('keydown', documentKeydownHandler);
 };
 
-var setupCloseEscHandler = function (evt) {
-  if (evt.keyCode === KEYCODE.ESC) {
+var documentKeydownHandler = function (evt) {
+  if (!(document.activeElement === setupUserName) && evt.keyCode === KeyCode.ESC) {
     closeSetup();
   }
 };
 
-var setupCloseEnterHandler = function (evt) {
-  if (evt.keyCode === KEYCODE.ENTER) {
+var setupCloseKeydownHandler = function (evt) {
+  if (evt.keyCode === KeyCode.ENTER) {
     closeSetup();
   }
 };
 
-var setupOpenEnterHandler = function (evt) {
-  if (evt.keyCode === KEYCODE.ENTER) {
+var setupOpenKeydownHandler = function (evt) {
+  if (evt.keyCode === KeyCode.ENTER) {
     openSetup();
   }
 };
@@ -97,7 +97,7 @@ setupOpen.addEventListener('click', function () {
   openSetup();
 });
 
-setupOpenIcon.addEventListener('keydown', setupOpenEnterHandler);
+setupOpenIcon.addEventListener('keydown', setupOpenKeydownHandler);
 
 setupClose.addEventListener('click', function () {
   closeSetup();
@@ -117,12 +117,12 @@ var inputCoatColor = setupForm.querySelector('[name="coat-color"]');
 var inputEyesColor = setupForm.querySelector('[name="eyes-color"]');
 
 
-var WIZARD_COAT = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES = ['black', 'red', 'blue', 'yellow', 'green'];
-var WIZARD_FIREBALL = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+var WIZARD_FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 wizardCoat.addEventListener('click', function () {
-  var coatColor = getRandomArrayElement(WIZARD_COAT);
+  var coatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
   wizardCoat.style.fill = coatColor;
   inputCoatColor.value = coatColor;
 });
@@ -134,7 +134,7 @@ wizardEyes.addEventListener('click', function () {
 });
 
 wizardFireball.addEventListener('click', function () {
-  var fireballColor = getRandomArrayElement(WIZARD_FIREBALL);
+  var fireballColor = getRandomArrayElement(WIZARD_FIREBALL_COLORS);
   wizardFireball.style.backgroundColor = fireballColor;
   inputFireballColor.value = fireballColor;
 });
